@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 function UserForm({ onUserAdd }) {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
 
+  const nameInputRef = useRef();
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     onUserAdd({ name, email });
+
+    setName('');
+    setEmail('');
+
+    nameInputRef.current.focus();
   };
 
   return (
@@ -18,6 +25,7 @@ function UserForm({ onUserAdd }) {
           id='name'
           value={name}
           onChange={(e) => setName(e.target.value)}
+          ref={nameInputRef}
         />
       </div>
       <div>
